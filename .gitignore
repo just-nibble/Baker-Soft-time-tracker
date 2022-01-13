@@ -1,0 +1,6 @@
+staticfiles/
+db.sqlite3
+__pycache__/
+data.json
+**/migrations/*
+!**/migrations/__init__.py
