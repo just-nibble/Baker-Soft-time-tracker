@@ -18,14 +18,12 @@ class Project(models.Model):
 
 
 class Task(models.Model):
-    status_options = (("pending", "pending"), ("assigned",
-                      "assigned"), ("completed", "completed"))
     title = models.CharField(max_length=255, null=True)
     description = models.TextField(max_length=255, null=True)
     attachment = models.FileField(
         upload_to="task/attachment", null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True)
-    status = models.CharField(max_length=15, null=True, choices=status_options)
+    status = models.CharField(max_length=15, null=True, default="pending")
 
     def __str__(self):
         return self.title
@@ -36,4 +34,4 @@ class ProjectMembers(models.Model):
     member = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return str(self.task.title) + ": " + str(self.member.username)
+        return str(self.task) + ": " + str(self.member)
