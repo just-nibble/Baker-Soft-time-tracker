@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 from django.contrib.auth import get_user_model
 # Create your models here.
@@ -35,3 +38,9 @@ class ProjectMembers(models.Model):
 
     def __str__(self):
         return str(self.task) + ": " + str(self.member)
+
+
+@receiver(post_save, sender=ProjectMembers)
+def change_to_assigned(sender, instance, **kwargs):
+    instance.task.status = "assigned"
+    instance.task.save()
