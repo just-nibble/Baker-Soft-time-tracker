@@ -5,8 +5,25 @@ from . import serializers, models, permissions
 
 
 class ProjectAPIView(ListCreateAPIView):
-    serializer_class = serializers.ProjectSerializer
     queryset = models.Project.objects.all()
+    serializer_class = serializers.ProjectSerializer
+    filterset_fields = ["title",
+                        "manager__username",
+                        "start_time",
+                        "projected_completion_time",
+                        "actual_completion_time"]
+
+    search_fields = ["title",
+                     "manager__username",
+                     "start_time",
+                     "projected_completion_time",
+                     "actual_completion_time"]
+
+    ordering_fields = ["title",
+                       "manager__username",
+                       "start_time",
+                       "projected_completion_time",
+                       "actual_completion_time"]
 
     def perform_create(self, serializer):
         serializer.save(manager=self.request.user)
@@ -18,16 +35,15 @@ class ProjectDetailAPIView(RetrieveUpdateDestroyAPIView):
     queryset = models.Project.objects.all()
 
 
-class ProjectDetailAPIView(RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.CanEditProject]
-    serializer_class = serializers.ProjectSerializer
-    queryset = models.Project.objects.all()
-
-
-class TaskAPIVIew(ListCreateAPIView):
+class TaskAPIView(ListCreateAPIView):
+    queryset = models.Task.objects.all()
     permission_classes = [permissions.TasksPermissions]
     serializer_class = serializers.TaskSerializer
-    queryset = models.Task.objects.all()
+    filterset_fields = ["title", "description", "project__title", "status", ]
+
+    search_fields = ["title", "description", "project__title", "status", ]
+
+    ordering_fields = ["title", "description", "project__title", "status", ]
 
 
 class TaskDetailAPIView(RetrieveUpdateDestroyAPIView):
@@ -37,9 +53,14 @@ class TaskDetailAPIView(RetrieveUpdateDestroyAPIView):
 
 
 class ProjectMemberAPIView(ListCreateAPIView):
+    queryset = models.ProjectMembers.objects.all()
     permission_classes = [permissions.TasksPermissions]
     serializer_class = serializers.ProjectMemberSerializer
-    queryset = models.ProjectMembers.objects.all()
+    filterset_fields = ["task", "member", ]
+
+    search_fields = ["task", "member", ]
+
+    ordering_fields = ["task", "member", ]
 
 
 class ProjectMemberDetailAPIView(RetrieveUpdateDestroyAPIView):

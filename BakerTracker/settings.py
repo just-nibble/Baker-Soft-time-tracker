@@ -50,10 +50,11 @@ INSTALLED_APPS = [
 
     'corsheaders',
 
-    # 'django_filters',
+    'django_filters',
 
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_filters',
 ]
 
 MIDDLEWARE = [
@@ -154,6 +155,8 @@ REST_FRAMEWORK = {
 
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
     ],
 
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
