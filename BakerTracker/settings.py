@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +41,16 @@ INSTALLED_APPS = [
 
     # User Created apps
     'accounts.apps.AccountsConfig',
+
+    # 3rd Party apps
+    # 3rd party apps
+    'allauth',
+    'allauth.account',
+
+    'corsheaders',
+
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -141,3 +152,5 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 25
 
 }
+
+SITE_ID = 1
