@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # User Created apps
     'accounts.apps.AccountsConfig',
+    'projects.apps.ProjectsConfig',
 
     # 3rd Party apps
     # 3rd party apps
