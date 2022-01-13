@@ -30,7 +30,7 @@ API_DESCRIPTION = 'A Web API for work time tracking application.'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
-    path('projects/', include('projects.urls')),
+    path('projects/', include('projects.urls', namespace='projects')),
     path('docs/', include_docs_urls(
         title=API_TITLE,
         description=API_DESCRIPTION)
